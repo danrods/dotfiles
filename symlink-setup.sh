@@ -60,7 +60,7 @@ cmd_exists() {
 }
 
 execute() {
-    $1 &> /dev/null
+    $1 
     print_result $? "${2:-$1}"
 }
 
@@ -161,8 +161,8 @@ main() {
         targetFile="$HOME/$(printf "%s" "$i" | sed "s/.*\/\(.*\)/\1/g")"
 
         if [ -e "$targetFile" ]; then
+            
             if [ "$(readlink "$targetFile")" != "$sourceFile" ]; then
-
                 ask_for_confirmation "'$targetFile' already exists, do you want to overwrite it?"
                 if answer_is_yes; then
                     rm -rf "$targetFile"
@@ -175,7 +175,7 @@ main() {
                 print_success "$targetFile → $sourceFile"
             fi
         else
-            execute "ln -fs $sourceFile $targetFile" "$targetFile → $sourceFile"
+            execute "ln -sf $sourceFile $targetFile" "$targetFile → $sourceFile"
         fi
 
     done

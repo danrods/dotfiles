@@ -1,3 +1,20 @@
+
+##############################################################################################################
+### symlinks to link dotfiles into ~/
+###
+
+#   move git credentials into ~/.gitconfig.local        http://stackoverflow.com/a/13615531/89484
+#   now .gitconfig can be shared across all machines and only the .local changes
+
+# symlink it up!
+./symlink-setup.sh
+
+###
+##############################################################################################################
+
+
+
+
 # copy paste this file in bit by bit.
 # don't run it.
   echo "do not run this script in one go. hit ctrl-c NOW"
