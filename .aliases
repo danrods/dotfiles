@@ -11,6 +11,7 @@ alias -- -="cd -"
 alias mv='mv -v'
 alias rm='rm -i -v'
 alias cp='cp -v'
+alias grep='grep --color=auto'
 
 alias cask='brew cask' # i <3 u cask
 alias where=which # sometimes i forget
@@ -18,7 +19,35 @@ alias brwe=brew  #typos
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
-#alias lord="ls -la | grep '^d' && ls -la | grep '^-' && ls -la | grep '^l' "
+alias forecast='ansiweather -F'
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
+
+# Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
+# (useful when executing time-consuming commands)
+alias badge="tput bel"
+
+# Lock the screen (when going AFK)
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec $SHELL -l"
+
+####################### SPEED TEST ###########################
+#1880) T-Mobile (Syosset, NY, United States) [42.95 km]
+#5029) AT&T (New York City, NY, United States) [86.67 km]
+#1815) T-Mobile (Manhattan New York, NY, United States) [86.67 km]
+#7170) ISPnet, Inc (New York, NY, United States) [86.67 km]
+#7546) UNMETERED.GLOBAL (New York, NY, United States) [86.67 km]
+#2947) Atlantic Metro (New York City, NY, United States) [86.68 km]
+#1819) Towerstream (New York City, NY, United States) [86.68 km]
+# 663) Optimum Online (New York City, NY, United States) [86.68 km]
+#3593) Inerail (New York City, NY, United States) [86.68 km]
+#5723) INOC, LLC (Albany, NY, United States) [210.15 km]
+alias speed='speedtest-cli  --server 663  '
+###############################################################
 
 
 ###
@@ -63,8 +92,16 @@ alias free_diskspace_report="diskspace_report"
 
 # Shortcuts
 alias g="git"
+alias j="jobs"
 alias v="vim"
 alias ungz="gunzip -k"
+alias p="cd ~/projects"
+alias dl="cd ~/Downloads"
+alias dt="cd ~/Desktop"
+alias drive="cd ~/Google\ Drive\ drodrigues/"
+
+
+
 
 # File size
 alias fs="stat -f \"%z bytes\""
