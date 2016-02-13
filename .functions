@@ -3,6 +3,9 @@ function md() {
 	mkdir -p "$@" && cd "$@"
 }
 
+function c() {
+	cd "$1" && ls
+}
 
 # find shorthand
 function f() {
@@ -15,7 +18,7 @@ function sshHome() {
 
 function sshDefault(){
 	printf "Connecting using tacks : %s, %s" $1 $2
-	sshHome 24.185.78.240 8088 $1 $2
+	sshHome 24.185.78.240 8099 $1 $2
 
 }
 
@@ -23,12 +26,20 @@ function sshDynamic() {
 	sshDefault -D 61824
 }
 
-function sshLocal() {
-	sshHome -L $1:$2:$3 
+function sshJira() {
+	sshDefault -L 8088:localhost:8088 
 }
 
 function sshVNC() {
 	sshDefault -L 5901:localhost:5901 -N
+}
+
+function ssh306(){
+	ssh student@130.245.30.115 -p 130
+}
+
+function wth() {
+	sudo lsof -i :"$1"
 }
 
 # List all files, long format, colorized, permissions in octal

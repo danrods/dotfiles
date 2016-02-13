@@ -17,7 +17,7 @@ alias cask='brew cask' # i <3 u cask
 alias where=which # sometimes i forget
 alias brwe=brew  #typos
 
-alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
+alias hosts='sudo nano /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
 alias forecast='ansiweather -F'
 
@@ -68,7 +68,7 @@ alias lsd='ls -l | grep "^d"' # only directories
 
 
 # `cat` with beautiful colors. requires: sudo easy_install -U Pygments
-alias c='pygmentize -O style=monokai -f console256 -g'
+alias cat='pygmentize -O style=monokai -f console256 -g'
 
 ###
 # GIT STUFF
