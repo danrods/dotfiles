@@ -35,7 +35,11 @@ function sshVNC() {
 }
 
 function ssh306(){
-	ssh student@130.245.30.115 -p 130
+	ssh -X student@130.245.30.115 -p 130
+}
+
+function ssh311(){
+	ssh -p 130 drodrigues@130.245.155.91
 }
 
 function wth() {
