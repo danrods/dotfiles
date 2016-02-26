@@ -115,8 +115,6 @@ shopt -s cdspell;
 
 
 
-
-
 # The next line updates PATH for the Google Cloud SDK.
 source '/Users/drodrigues/google-cloud-sdk/path.bash.inc'
 
@@ -124,3 +122,5 @@ source '/Users/drodrigues/google-cloud-sdk/path.bash.inc'
 source '/Users/drodrigues/google-cloud-sdk/completion.bash.inc'
 
 export PATH=$PATH:/Users/drodrigues/google-cloud-sdk/appengine-java-sdk-1.9.31/bin/
+
+fortune | cowsay
