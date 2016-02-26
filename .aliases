@@ -49,6 +49,7 @@ alias reload="exec $SHELL -l"
 alias speed='speedtest-cli  --server 663  '
 ###############################################################
 
+alias cpucheck="ps aux -r | grep -m 11 -v $(whoami)"
 
 ###
 # time to upgrade `ls`
