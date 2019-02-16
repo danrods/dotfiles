@@ -17,7 +17,7 @@ function sshHome() {
 }
 
 function sshDefault(){
-	printf "Connecting using tacks : %s, %s" $1 $2
+	#printf "Connecting using tacks : %s, %s" $1 $2
 	sshHome 24.185.78.240 8099 $1 $2
 
 }
@@ -39,7 +39,42 @@ function ssh306(){
 }
 
 function ssh311(){
-	ssh -p 130 drodrigues@130.245.155.91
+	# ssh -p 130 drodrigues@130.245.155.91
+	ssh -p 130 maggi@130.245.155.66
+}
+
+function ssh376(){
+
+	server="-1"
+	port=130
+
+	if [ "$1" == 'solaris' ] ; then
+		server="a-solaris9.cs.stonybrook.edu"
+	elif [ "$1" == 'a-freebsd' ] ; then
+		server="a-freebsd82.cs.stonybrook.edu"
+	elif [ "$1" == 'b-freebsd' ] ; then
+		server="b-freebsd91.cs.stonybrook.edu"
+	elif [ "$1" == 'a-centos' ] ; then
+		server="a-centos58.cs.stonybrook.edu"
+	elif [ "$1" == 'b-centos' ] ; then
+		server="b-centos59.cs.stonybrook.edu"
+	elif [ "$1" == 'indiana' ] ; then
+		server="a-openindiana511.cs.stonybrook.edu"
+	elif [ "$1" == 'a-ubuntu' ] ; then
+		server="a-ubuntu104.cs.stonybrook.edu"
+	elif [ "$1" == 'b-ubuntu' ] ; then
+		server="b-ubuntu104.cs.stonybrook.edu"
+	elif [ "$1" == 'osx' ] ; then
+		server="a-osx.cs.stonybrook.edu"
+	fi
+	
+	if [ "$server" == '-1' ] ; then
+		printf "No server found for given input $1"
+		return
+	fi
+
+	ssh -p $port danierodrigu@$server
+
 }
 
 function wth() {
@@ -364,4 +399,29 @@ function o() {
 function tre() {
 	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }
+
+function vidshare() {
+	open http://localhost:8080
+	ssh -p 8099 -L 8080:localhost:8080 danny@69.123.166.191
+}
+
+function javav(){
+	local version="";
+	if [ "$1" == "7" ]; then
+		version="1.7.0_79";
+	elif [ "$1" == "8" ]; then
+		version="1.8.0_152";
+	else 
+		version="$1";
+	fi;
+
+	export PATH=$(echo $PATH | sed -E -e "s;:${JAVA_HOME}/bin;;" -e "s;${JAVA_HOME}/bin:?;;")
+
+	export JAVA_HOME=$(/usr/libexec/java_home -v"${version}")
+	# export JAVA="$JAVA_HOME/bin"
+
+	export PATH="$PATH:$JAVA_HOME/bin"
+	echo "Successfully Switched to Java version ${JAVA_HOME}"
+}
+
 

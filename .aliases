@@ -12,6 +12,7 @@ alias mv='mv -v'
 alias rm='rm -i -v'
 alias cp='cp -v'
 alias grep='grep --color=auto'
+alias gup='g up'
 
 alias cask='brew cask' # i <3 u cask
 alias where=which # sometimes i forget
@@ -106,6 +107,8 @@ alias drive="cd ~/Google\ Drive\ drodrigues/"
 
 # File size
 alias fs="stat -f \"%z bytes\""
+
+alias fx="stat -x"
 
 # Empty the Trash on all mounted volumes and the main HDD. then clear the useless sleepimage
 alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash; sudo rm /private/var/vm/sleepimage"

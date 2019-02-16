@@ -12,7 +12,9 @@ fpath=( "$HOME/.zfunctions" $fpath )
 
 
 # antigen time!
-source ~/code/antigen/antigen.zsh
+# source ~/code/antigen/antigen.zsh
+#source /usr/local/share/antigen/antigen.zsh
+source $(brew --prefix)/share/antigen/antigen.zsh
 
 
 ######################################################################

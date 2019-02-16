@@ -10,6 +10,48 @@ export LANG="en_US"
 
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
+
+export GOOGLE_APPLICATION_CREDENTIALS=/Users/drodrigues/Google\ Drive\ drodrigues/Igreja-Emanuel-bbabdaab8b06.json
+
+# export JAVA_HOME="/usr/libexec/java_home"
+
+# export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home"
+
+export APPENGINE_SDK="/Users/drodrigues/google-cloud-sdk/appengine-java-sdk-1.9.31/bin/"
+
+# Setting PATH for Python 3.5
+export PYTHON="/Library/Frameworks/Python.framework/Versions/3.5/bin"
+
+export JAVA_HOME="$(/usr/libexec/java_home)"
+# export JAVA="$JAVA_HOME/bin"
+
+export M2_HOME="/devTools/apache-maven-3.3.3"
+export M2="$M2_HOME/bin"
+
+export MYSQL_HOME="/usr/local/opt/mysql@5.5/bin"
+
+export PLAY_HOME="~/projects/play1"
+
+export PATH="$JAVA_HOME/bin:$M2:$PYTHON:$APPENGINE_SDK:$PLAY_HOME:$MYSQL_HOME:$PATH"
+
+
+# # The orginal version is saved in .bash_profile.pysave
+# PATH=":${PATH}"
+# export PATH
+
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
+
+export DATASTORE_DATASET=igreja-emanuel
+export DATASTORE_EMULATOR_HOST=localhost:8081
+export DATASTORE_EMULATOR_HOST_PATH=localhost:8081/datastore
+export DATASTORE_HOST=http://localhost:8081
+export DATASTORE_PROJECT_ID=igreja-emanuel
+
+# export JAVA_HOME="/usr/libexec/java_home"
+
+# export PATH=$PATH:$APPENGINE_SDK
+
 # here's LS_COLORS
 # github.com/trapd00r/LS_COLORS
 command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
