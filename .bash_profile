@@ -106,20 +106,36 @@ complete -W "NSGlobalDomain" defaults
 ##
 ## better `cd`'ing
 ##
-
+r
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
 
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
 
+export JAVA_6_HOME=$(/usr/libexec/java_home -v1.6)
+export JAVA_7_HOME=$(/usr/libexec/java_home -v1.7)
+export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
 
+alias java6='export JAVA_HOME=$JAVA_6_HOME'
+alias java7='export JAVA_HOME=$JAVA_7_HOME'
+alias java8='export JAVA_HOME=$JAVA_8_HOME'
 
-# The next line updates PATH for the Google Cloud SDK.
-source '/Users/drodrigues/google-cloud-sdk/path.bash.inc'
+#default java7
+export JAVA_HOME=$JAVA_7_HOME
 
-# The next line enables shell command completion for gcloud.
-source '/Users/drodrigues/google-cloud-sdk/completion.bash.inc'
+#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home
+export JAVA=$JAVA_HOME/bin
+export MAVEN_COLOR=true
+export M2_HOME=/opt/local/share/java/maven3
+export M2=$M2_HOME/bin
+export APP_ENGINE=/Users/kkrcentralit/common/appengine-java-sdk-1.9.42/bin
+export J_ENV=/Users/kkrcentralit/.jenv/shims
+export PATH=$PATH:$M2:$JAVA:$APP_ENGINE:$J_ENV
+export JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true"
+export NVM_DIR=~/.nvm
+
+source $(brew --prefix nvm)/nvm.sh
 
 
 

@@ -12,6 +12,11 @@ function f() {
 	find . -name "$1" 2>&1 | grep -v 'Permission denied'
 }
 
+# Clean all messages from selected channel
+function cleanSlack() {
+	slack-cleaner --token=xoxp-220561333281-221154527796-231195671875-06c017f80c92f8b0bfae2b67c89dc982 --message --channel "$1" --perform --rate 0 --bot
+}
+
 function sshHome() {
 	ssh $3 $4 -p $2 danny@$1
 }
@@ -89,7 +94,7 @@ function la() {
 	integer i;
 	integer k;
 	k=0;
-	for((i=0;i<=8;i++))
+	for((i=0; i <= 8 ;i++))
     	k+=((substr($1,i+2,1)~/[rwx]/) *2^(8-i))
 
     if(k)
@@ -122,7 +127,70 @@ cp_p () {
 }
 
 function pastebin() {
-	echo "$1" | nc virtualhacker.net 9999 | pbcopy
+	echo "$1" | nc vhbin.net 9999 | pbcopy
+}
+
+function get_date(){
+	val="$1"
+	dayOffset="$2"
+	date -j -v +"$dayOffset"d -f "%Y-%m-%d" "$val" +%Y-%m-%d 
+    # date -f +%Y-%m-%d -d "$1" -v +1d
+}
+
+function downloadForRange(){
+	# slightly malformed input data
+	# input_start=2017-06-01
+	# input_end=2017-10-16
+	# then=$(get_date "$1")
+	# now=$(get_date "today")
+	input_start="$1"
+	input_end="$2"
+
+	echo "Downloading for Range: $input_start --> $input_end"
+	# After this, startdate and enddate will be valid ISO 8601 dates,
+	# or the script will have aborted when it encountered unparseable data
+	# such as input_end=abcd
+	startdate=$(get_date "$input_start" 0)|| return
+	enddate=$(get_date "$input_end" 0)|| return
+
+	d="$startdate"
+
+	# Clear the slate
+	echo '' > /Volumes/Shared/fx/datecripts.sql
+
+	while [ "$d" != "$enddate" ]; do 
+	  # echo "Running for Date $d"
+	  echo " -- /////////// DATE: $d ///////////// "
+	  url="https://openexchangerates.org/api/historical/${d}.json?app_id=6b023905d49b4cd0868da78a5be84201"
+	  echo "Running URL ${url}"
+	  curl -s "${url}" | python /Users/kkrcentralit/PycharmProjects/FX_Data/fx_script_creater.py >> /Volumes/Shared/fx/datecripts.sql
+	  echo '-- ////////////////////////////////////' >> /Volumes/Shared/fx/datecripts.sql
+	  d=$(get_date "$d" 1)
+	done
+
+}
+
+function downloadHistoricalFX(){
+	# array=( '2017-06-01' '2017-07-01' '2017-08-01' '2017-09-01' '2017-10-01')
+	# array=( '2017-06-30' '2017-07-31' '2017-08-31' '2017-09-30')
+	array=( '2017-06-30' )
+	for i in "${array[@]}"
+	do
+		url="https://openexchangerates.org/api/historical/${i}.json?app_id=6b023905d49b4cd0868da78a5be84201"
+		echo "Running URL ${url}"
+		# curl "${url}" --output /Volumes/Shared/fx/${i}.json
+		(curl -s "${url}" | python /Users/kkrcentralit/PycharmProjects/FX_Data/fx_script_creater.py ) >> /Volumes/Shared/fx/datescripts.sql
+	    # python /home/user/executeJobs.py {i} &> /home/user/${i}.log
+	done
+}
+
+
+function simulateTZ(){
+	export TZ="$1"
+
+	killall "Google Chrome"
+	date
+	open /Applications/Google\ Chrome.app
 }
 
 
@@ -356,9 +424,9 @@ function getcertnames() {
 # opens the given location
 function s() {
 	if [ $# -eq 0 ]; then
-		sublime .;
+		subl .;
 	else
-		sublime "$@";
+		subl "$@";
 	fi;
 }
 
@@ -400,9 +468,10 @@ function tre() {
 	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }
 
+
 function vidshare() {
 	open http://localhost:8080
-	ssh -p 8099 -L 8080:localhost:8080 danny@69.123.166.191
+	ssh -p 8099 -L 8080:localhost:8080 danny@127.0.0.1
 }
 
 function javav(){
@@ -424,4 +493,15 @@ function javav(){
 	echo "Successfully Switched to Java version ${JAVA_HOME}"
 }
 
+
+# Function used to view maven dependencies for a particular group or all dependencies if none selected
+function depends() {
+	if [ $# -eq 2 ]; then
+		cd "$1" && mvn dependency:tree -Dverbose -Dincludes="$2";
+	elif [ $# -eq 1 ]; then
+		mvn dependency:tree -Dverbose -Dincludes="$1";
+	else
+		mvn dependency:tree -Dverbose
+	fi;
+}
 
