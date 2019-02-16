@@ -106,7 +106,6 @@ complete -W "NSGlobalDomain" defaults
 ##
 ## better `cd`'ing
 ##
-r
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
 
