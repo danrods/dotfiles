@@ -10,6 +10,16 @@ export LANG="en_US"
 
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
+#If you need to have ncurses first in your PATH run:
+export NCURSES="/usr/local/opt/ncurses/bin"
+
+#For compilers to find ncurses you may need to set:
+#export LDFLAGS="-L/usr/local/opt/ncurses/lib"
+#export CPPFLAGS="-I/usr/local/opt/ncurses/include"
+
+#For pkg-config to find ncurses you may need to set:
+export PKG_CONFIG_PATH="/usr/local/opt/ncurses/lib/pkgconfig"
+
 
 export GOOGLE_APPLICATION_CREDENTIALS=/Users/drodrigues/Google\ Drive\ drodrigues/Igreja-Emanuel-bbabdaab8b06.json
 
@@ -32,7 +42,7 @@ export MYSQL_HOME="/usr/local/opt/mysql@5.5/bin"
 
 export PLAY_HOME="~/projects/play1"
 
-export PATH="$JAVA_HOME/bin:$M2:$PYTHON:$APPENGINE_SDK:$PLAY_HOME:$MYSQL_HOME:$PATH"
+export PATH="$JAVA_HOME/bin:$M2:$PYTHON:$APPENGINE_SDK:$PLAY_HOME:$MYSQL_HOME:$NCURSES:$PATH"
 
 
 # # The orginal version is saved in .bash_profile.pysave
