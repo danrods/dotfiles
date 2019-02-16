@@ -36,3 +36,17 @@ read -n 1
 
 ###
 ##############################################################################################################
+
+
+##############################################################################################################
+### Setup Local Git configuration
+###
+
+#   move git credentials into ~/.gitconfig.local    	http://stackoverflow.com/a/13615531/89484
+#   now .gitconfig can be shared across all machines and only the .local changes
+
+# Lets set up Git local configurations!
+./addGitLocal.sh
+
+###
+##############################################################################################################
