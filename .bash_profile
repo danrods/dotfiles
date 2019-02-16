@@ -83,12 +83,14 @@ if  which brew > /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_
     source "$(brew --prefix)/share/bash-completion/bash_completion";
 elif [ -f /etc/bash_completion ]; then
     source /etc/bash_completion;
+elif which brew > /dev/null && [ -f "$(brew --repository)/Library/Contributions/brew_bash_completion.sh" ]; then
+    source `brew --repository`/Library/Contributions/brew_bash_completion.sh;
 fi;
 
 # homebrew completion
-if  which brew > /dev/null; then
-    source `brew --repository`/Library/Contributions/brew_bash_completion.sh
-fi;
+# if  which brew > /dev/null; then
+    
+# fi;
 
 # Enable tab completion for `g` by marking it as an alias for `git`
 if type __git_complete &> /dev/null; then
