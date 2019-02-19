@@ -1,3 +1,5 @@
+source ~/.exports.local
+
 # vim as default
 export EDITOR="vim"
 
@@ -8,7 +10,82 @@ export MANPAGER="less -X"
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
 
+# Omit duplicates and commands that begin with a space from history.
+export HISTCONTROL='ignoreboth';
+
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+#If you need to have ncurses first in your PATH run:
+export NCURSES="/usr/local/opt/ncurses/bin"
+
+#For compilers to find ncurses you may need to set:
+#export LDFLAGS="-L/usr/local/opt/ncurses/lib"
+#export CPPFLAGS="-I/usr/local/opt/ncurses/include"
+
+#For pkg-config to find ncurses you may need to set:
+export PKG_CONFIG_PATH="/usr/local/opt/ncurses/lib/pkgconfig"
+
+
+# Setting PATH for Python 3.5
+export PYTHON="/Library/Frameworks/Python.framework/Versions/3.5/bin"
+
+export JAVA_HOME="$(/usr/libexec/java_home)"
+# export JAVA="$JAVA_HOME/bin"
+
+export M2_HOME="/devTools/apache-maven-3.3.3"
+export M2="$M2_HOME/bin"
+
+export MYSQL_HOME="/usr/local/opt/mysql@5.5/bin"
+
+export PLAY_HOME="~/projects/play1"
+
+export PATH="$JAVA_HOME/bin:$M2:$PYTHON:$APPENGINE_SDK:$PLAY_HOME:$MYSQL_HOME:$NCURSES:$PATH"
+
+export GNU_BIN="/usr/local/opt/inetutils/libexec/gnubin"
+
+
+export BASH_PROMPT_GIT_VERBOSE=true
+export MAVEN_COLOR=true
+
+# # The orginal version is saved in .bash_profile.pysave
+# PATH=":${PATH}"
+# export PATH
+
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
+
+
+#export JAVA_6_HOME=$(/usr/libexec/java_home -v1.6)
+#export JAVA_7_HOME=$(/usr/libexec/java_home -v1.7)
+export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
+
+#alias java6='export JAVA_HOME=$JAVA_6_HOME'
+#alias java7='export JAVA_HOME=$JAVA_7_HOME'
+alias java8='export JAVA_HOME=$JAVA_8_HOME'
+
+#default java7
+export JAVA_HOME=$JAVA_7_HOME
+
+#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home
+export JAVA=$JAVA_HOME/bin
+
+export DOTFILE_BIN="$HOME/bin"
+
+export M2_HOME=/opt/local/share/java/maven3
+export M2=$M2_HOME/bin
+export APP_ENGINE=/Users/kkrcentralit/common/appengine-java-sdk-1.9.42/bin
+export J_ENV=/Users/kkrcentralit/.jenv/shims
+
+export PATH=$PATH:$M2:$JAVA:$APP_ENGINE:$J_ENV:$GNU_BIN:$DOTFILE_BIN
+
+export JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true"
+
+export NVM_DIR=~/.nvm
+
+
+# export JAVA_HOME="/usr/libexec/java_home"
+
+# export PATH=$PATH:$APPENGINE_SDK
 
 # here's LS_COLORS
 # github.com/trapd00r/LS_COLORS

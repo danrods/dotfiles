@@ -3,6 +3,7 @@
 
 # history
 SAVEHIST=100000
+#antigeZSH_CACHE_DIR=/tmp
 
 # vim bindings
 bindkey -v
@@ -12,7 +13,9 @@ fpath=( "$HOME/.zfunctions" $fpath )
 
 
 # antigen time!
-source ~/code/antigen/antigen.zsh
+# source ~/code/antigen/antigen.zsh
+#source /usr/local/share/antigen/antigen.zsh
+source $(brew --prefix)/share/antigen/antigen.zsh
 
 
 ######################################################################
@@ -22,26 +25,50 @@ local b="antigen-bundle"
 
 
 # Don't load the oh-my-zsh's library. Takes too long. No need.
-	# antigen use oh-my-zsh
-
-# Guess what to install when running an unknown command.
-$b command-not-found
-
-# Helper for extracting different types of archives.
-$b extract
+antigen use oh-my-zsh
 
 # atom editor
 $b atom
+
+$b autojump
 
 # homebrew  - autocomplete on `brew install`
 $b brew
 $b brew-cask
 
+# Guess what to install when running an unknown command.
+$b command-not-found
+
+$b common-aliases
+
+$b compleat
+
+# Helper for extracting different types of archives.
+$b extract
+
+$b git
+$b git-extras
+$b git-flow
+
+$b heroku
+
+$b lein
+$b npm
+$b osx
+$b pip
+$b web-search
+$b z
+
+$b zsh-users/zsh-syntax-highlighting
+$b zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
+
+# ------- Git Repos -------------
+
 # Tracks your most used directories, based on 'frecency'.
 $b robbyrussell/oh-my-zsh plugins/z
 
 # nicoulaj's moar completion files for zsh -- not sure why disabled.
-# $b zsh-users/zsh-completions src
+ $b zsh-users/zsh-completions src
 
 # Syntax highlighting on the readline
 $b zsh-users/zsh-syntax-highlighting
@@ -59,23 +86,19 @@ $b trapd00r/zsh-syntax-highlighting-filetypes
 $b mafredri/zsh-async
 $b sindresorhus/pure
 
-# Tell antigen that you're done.
-#antigen apply
+# ---------------------------------
+
+#antigen theme gnzh
+#antigen theme robbyrussell
+#antigen theme agnoster
+antigen theme githubuser/repo
+
+# Setup zsh-autosuggestions
+#source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ###
 #################################################################################################
 
-
-
-# bind UP and DOWN arrow keys for history search
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-
-# config for suggestions
-AUTOSUGGESTION_ACCEPT_RIGHT_ARROW=1
-
-export PURE_GIT_UNTRACKED_DIRTY=0
 
 # Automatically list directory contents on `cd`.
 auto-ls () {
@@ -88,10 +111,35 @@ chpwd_functions=( auto-ls $chpwd_functions )
 
 # Enable autosuggestions automatically
 zle-line-init() {
-    zle autosuggest-start
+    zle autosuggest-fetch
 }
 
+zle-history-up(){
+	bindkey "$terminfo[kcuu1]" history-substring-search-up
+}
+
+zle-history-down(){
+	bindkey "$terminfo[kcud1]" history-substring-search-down
+}
+
+
+
+
+
+# bind UP and DOWN arrow keys for history search
+zmodload zsh/terminfo
+zle -N zle-history-up
+zle -N zle-history-down
+
+# config for suggestions
+AUTOSUGGESTION_ACCEPT_RIGHT_ARROW=1
+
+export PURE_GIT_UNTRACKED_DIRTY=0
+
 zle -N zle-line-init
+
+
+
 
 
 # history mgmt
@@ -107,9 +155,13 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 # zprof
 
 
+# Tell antigen that you're done.
+antigen apply
 
 # Load default dotfiles
 source ~/.bash_profile
 
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+
