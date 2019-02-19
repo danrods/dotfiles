@@ -1,10 +1,5 @@
 [alias]
 
-	# Show verbose output about tags, branches or remotes
-	tags = tag -l
-	branches = branch -a
-	remotes = remote -v
-
 	# Amend the currently staged files to the latest commit
 	amend = commit --amend --reuse-message=HEAD
 
@@ -21,6 +16,9 @@
 	# List contributors with number of commits
 	contributors = shortlog --summary --numbered
 
+	# Credit an author on the latest commit
+	credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
+
 	# Show the diff between the latest commit and the current state
 	d = "!git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
@@ -31,37 +29,59 @@
 	
 	# Remove branches that have already been merged with master
 	# a.k.a. ‘delete merged’
-	dm = !git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d
+	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
 	down = pull
+
+	# Find branches containing commit
+	fb = "!f() { git branch -a --contains $1; }; f"
+
+	# Find tags containing commit
+	ft = "!f() { git describe --always --contains $1; }; f"
+
+	# Find commits by source code
+	fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+
+	# Find commits by commit message
+	fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
 
 	# Switch to a branch, creating it if necessary
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
+	graph = log --oneline --graph --color --all --decorate
 
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
 
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	
-	graph = log --oneline --graph --color --all --decorate
+
+	# Pull in remote changes for the current repository and all its submodules
+	p = !"git pull; git submodule foreach git pull origin master"
 
 	# View the current working tree status using the short format
 	s = status -s
 
 	sclone = clone --depth=1
 
+	# Interactive rebase with the given number of latest commits
+	reb = "!r() { git rebase -i HEAD~$1; }; r"
+
 	# Remove the old tag with this name and tag the latest commit with it.
 	retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
 
 	reup = rebase-update
+
+	# Show verbose output about tags, branches or remotes
+	tags = tag -l
+	branches = branch -a
+	remotes = remote -v
 
 	unstage = reset HEAD --
 
 	up = push
 
 [apply]
-
 	# Detect whitespace errors when applying a patch
 	whitespace = fix
 
@@ -79,6 +99,9 @@
 	#pager =  diff-so-fancy | less -r
 	pager = diff-highlight | diff-so-fancy | less -r
 
+	# Prevent showing files whose names contain non-ASCII symbols as unversioned.
+	# http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
+	precomposeunicode = false
 
 [color "branch"]
 	current = yellow reverse
@@ -104,12 +127,17 @@
 	changed = green
 	untracked = cyan
 
+[diff "bin"]
+	# Use `hexdump` to diff binary files
+	textconv = hexdump -v -C
+
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
 
 [help]
+# Automatically correct and execute mistyped commands
 	autocorrect = 1
 
 [include]
@@ -121,6 +149,9 @@
 
 [merge]
 	tool = opendiff
+
+	# Include summaries of merged commits in newly created merge commit messages
+	log = true
 
 [pager]
 	diff = diff-so-fancy | less --tabs=1,5 -RFX

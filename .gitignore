@@ -8,6 +8,7 @@
 .gitconfig.local
 
 
+.functions.local
 
 
 # Folder view configuration files
@@ -28,3 +29,6 @@ Thumbs.db
 # fish shell
 fishd.*
 .config/fish/fish_history
+
+# Java
+*.class

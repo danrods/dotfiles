@@ -13,9 +13,20 @@ alias rm='rm -i -v'
 alias cp='cp -v'
 alias grep='grep --color=auto'
 
+
+# ------- GIT ----------
+
+alias g="git"
+
 alias gup='g up'
 
+#Git shortcuts
+alias gg="git lg"
+
+# ------------------------
+
 alias sed='gsed'
+alias ftp='gftp'
 
 
 alias cask='brew cask' # i <3 u cask
@@ -97,18 +108,13 @@ alias diskspace_report="df -P -kHl"
 alias free_diskspace_report="diskspace_report"
 
 # Shortcuts
-alias g="git"
 alias j="jobs"
 alias v="vim"
 alias ungz="gunzip -k"
 alias p="cd ~/projects"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
-alias drive="cd ~/Google\ Drive\ drodrigues/"
 
-
-#Git shortcuts
-alias gg="git lg"
 
 # File size
 alias fs="stat -f \"%z bytes\""

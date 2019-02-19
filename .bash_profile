@@ -78,6 +78,15 @@ if [[ -n "$ZSH_VERSION" ]]; then  # quit now if in zsh
     return 1 2> /dev/null || exit 1;
 fi;
 
+
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+for option in autocd globstar; do
+    shopt -s "$option" 2> /dev/null;
+done;
+
+
 # bash completion.
 if  which brew > /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
     source "$(brew --prefix)/share/bash-completion/bash_completion";
@@ -92,10 +101,21 @@ fi;
     
 # fi;
 
+#[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+. /usr/local/etc/bash_completion.d/git-completion.bash;
+
+# Enable tab completion for `g` by marking it as an alias for `git`
+if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+    complete -o default -o nospace -F _git g;
+    source /usr/local/etc/bash_completion.d/git-completion.bash;
+fi;
+
 # Enable tab completion for `g` by marking it as an alias for `git`
 if type __git_complete &> /dev/null; then
     __git_complete g __git_main
 fi;
+
+
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
@@ -114,27 +134,7 @@ shopt -s nocaseglob;
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
 
-export JAVA_6_HOME=$(/usr/libexec/java_home -v1.6)
-export JAVA_7_HOME=$(/usr/libexec/java_home -v1.7)
-export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
 
-alias java6='export JAVA_HOME=$JAVA_6_HOME'
-alias java7='export JAVA_HOME=$JAVA_7_HOME'
-alias java8='export JAVA_HOME=$JAVA_8_HOME'
-
-#default java7
-export JAVA_HOME=$JAVA_7_HOME
-
-#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home
-export JAVA=$JAVA_HOME/bin
-export MAVEN_COLOR=true
-export M2_HOME=/opt/local/share/java/maven3
-export M2=$M2_HOME/bin
-export APP_ENGINE=/Users/kkrcentralit/common/appengine-java-sdk-1.9.42/bin
-export J_ENV=/Users/kkrcentralit/.jenv/shims
-export PATH=$PATH:$M2:$JAVA:$APP_ENGINE:$J_ENV
-export JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true"
-export NVM_DIR=~/.nvm
 
 source $(brew --prefix nvm)/nvm.sh
 
