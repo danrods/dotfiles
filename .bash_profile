@@ -1,4 +1,11 @@
 
+failure() {
+  local lineno=$1
+  echo "Failed at $lineno"
+}
+
+#trap 'failure ${LINENO}' ERR
+
 # Load our dotfiles like ~/.bash_prompt, etc…
 #   ~/.extra can be used for settings you don’t want to commit,
 #   Use it to configure your PATH, thus it being first in line.
@@ -64,10 +71,17 @@ export NVM_DIR="$HOME/.nvm"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 
-# z beats cd most of the time.
-#   github.com/rupa/z
-source ~/code/z/z.sh
 
+
+if [ -f " ~/code/z/z.sh" ]; then
+    # z beats cd most of the time.
+    #   github.com/rupa/z
+    source ~/code/z/z.sh
+elif which brew > /dev/null && [ -f "$(brew --prefix)/etc/profile.d/z.sh" ]; then
+    # z beats cd most of the time.
+    #   github.com/rupa/z
+    source "$(brew --prefix)/etc/profile.d/z.sh";
+fi;
 
 
 ##
@@ -80,14 +94,18 @@ fi;
 
 # bash completion.
 if  which brew > /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
-    source "$(brew --prefix)/share/bash-completion/bash_completion";
+    #source "$(brew --prefix)/share/bash-completion/bash_completion";
+    source "$(brew --prefix)/etc/bash_completion.d/brew"
 elif [ -f /etc/bash_completion ]; then
     source /etc/bash_completion;
 fi;
 
+
 # homebrew completion
 if  which brew > /dev/null; then
-    source `brew --repository`/Library/Contributions/brew_bash_completion.sh
+   # source `brew --repository`/Library/Contributions/brew_bash_completion.sh
+   source "$(brew --prefix)/etc/bash_completion.d/brew"
+    [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 fi;
 
 # Enable tab completion for `g` by marking it as an alias for `git`
@@ -106,23 +124,23 @@ complete -W "NSGlobalDomain" defaults
 ##
 ## better `cd`'ing
 ##
-r
+
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob;
 
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
 
-export JAVA_6_HOME=$(/usr/libexec/java_home -v1.6)
-export JAVA_7_HOME=$(/usr/libexec/java_home -v1.7)
+# export JAVA_6_HOME=$(/usr/libexec/java_home -v1.6)
+# export JAVA_7_HOME=$(/usr/libexec/java_home -v1.7)
 export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
 
-alias java6='export JAVA_HOME=$JAVA_6_HOME'
-alias java7='export JAVA_HOME=$JAVA_7_HOME'
+#alias java6='export JAVA_HOME=$JAVA_6_HOME'
+#alias java7='export JAVA_HOME=$JAVA_7_HOME'
 alias java8='export JAVA_HOME=$JAVA_8_HOME'
 
-#default java7
-export JAVA_HOME=$JAVA_7_HOME
+#default java8
+export JAVA_HOME=$JAVA_8_HOME
 
 #export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home
 export JAVA=$JAVA_HOME/bin
@@ -131,11 +149,23 @@ export M2_HOME=/opt/local/share/java/maven3
 export M2=$M2_HOME/bin
 export APP_ENGINE=/Users/kkrcentralit/common/appengine-java-sdk-1.9.42/bin
 export J_ENV=/Users/kkrcentralit/.jenv/shims
-export PATH=$PATH:$M2:$JAVA:$APP_ENGINE:$J_ENV
+export PLAY_FRAMEWORK=/Users/daniel/projects/play1
+export RUBY_GEMS=/usr/local/lib/ruby/gems/2.6.0/bin
+
+
+export PATH=/usr/local/opt/gnu-sed/libexec/gnubin:$PATH
+export PATH=$PATH:$M2:$JAVA:$APP_ENGINE:$J_ENV:$PLAY_FRAMEWORK:$RUBY_GEMS
+
 export JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true"
 export NVM_DIR=~/.nvm
 
-source $(brew --prefix nvm)/nvm.sh
+
+
+ssh-add -K ~/.ssh/id_rsa &> /dev/null;
+
+
+
+#source $(brew --prefix nvm)/nvm.sh
 
 
 fortune | cowsay

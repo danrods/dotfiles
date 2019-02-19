@@ -16,7 +16,7 @@ brew install moreutils
 # GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed
 brew install findutils
 # GNU `sed`, overwriting the built-in `sed`
-brew install gnu-sed --default-names
+brew install gnu-sed --with-default-names
 
 
 # Bash 4
@@ -24,10 +24,10 @@ brew install gnu-sed --default-names
 brew install bash
 # regular bash-completion package is held back to an older release, so we get latest from versions.
 #   github.com/Homebrew/homebrew/blob/master/Library/Formula/bash-completion.rb#L3-L4
-brew tap homebrew/versions
+#brew tap homebrew/versions ///Removed, now in core no need to tap
 brew install bash-completion2
 
-brew install homebrew/completions/brew-cask-completion
+brew install brew-cask-completion
 
 # generic colouriser  http://kassiopeia.juls.savba.sk/~garabik/software/grc/
 brew install grc
@@ -51,10 +51,10 @@ brew install gh
 # mtr - ping & traceroute. best.
 brew install mtr
 
-    # allow mtr to run without sudo
-    mtrlocation=$(brew info mtr | grep Cellar | sed -e 's/ (.*//') #  e.g. `/Users/paulirish/.homebrew/Cellar/mtr/0.86`
-    sudo chmod 4755 $mtrlocation/sbin/mtr
-    sudo chown root $mtrlocation/sbin/mtr
+# allow mtr to run without sudo
+mtrlocation=$(brew info mtr | grep Cellar | sed -e 's/ (.*//') #  e.g. `/Users/paulirish/.homebrew/Cellar/mtr/0.86`
+sudo chmod 4755 $mtrlocation/sbin/mtr
+sudo chown root $mtrlocation/sbin/mtr
 
 
 # Install other useful binaries
@@ -74,6 +74,70 @@ brew install android-platform-tools
 brew install pidcat   # colored logcat guy
 
 brew install zsh
+
+brew install cowsay
+
+brew install fortune
+
+brew install ansiweather
+
+brew install yarn
+
+# Compress .xz Files
+brew install xz
+
+# Terminal coloring or something
+brew install vte
+
+#Convenient man page spark notes
+brew install tldr
+
+brew install tidy-html5
+
+brew install tcpdump
+
+brew install sl
+
+brew install speedtest-cli
+
+brew install python
+brew install python3
+
+brew install perl
+
+brew install ruby
+
+brew install sphinx-doc
+
+brew install readline
+
+brew install nvm
+
+brew install openssl
+
+brew install oniguruma
+
+brew install jq
+
+brew install htop
+
+brew install dark-mode
+
+brew install curl
+
+brew install glib
+
+brew install gcc
+
+brew install calc
+
+brew install autoconf
+
+brew install automake
+
+# Needed for ZSH
+brew install antigen
+
 
 # Remove outdated versions from the cellar
 brew cleanup
