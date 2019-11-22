@@ -27,7 +27,7 @@ alias gg="git lg"
 
 alias sed='gsed'
 alias ftp='gftp'
-
+alias sublime='subl'
 
 alias cask='brew cask' # i <3 u cask
 alias where=which # sometimes i forget

@@ -3,7 +3,7 @@
 
 # history
 SAVEHIST=100000
-#antigeZSH_CACHE_DIR=/tmp
+#ZSH_CACHE_DIR=/tmp
 
 # vim bindings
 bindkey -v
@@ -11,6 +11,8 @@ bindkey -v
 
 fpath=( "$HOME/.zfunctions" $fpath )
 
+export ANTIGEN_LOG="/var/log/antigen/antigen.log"
+export ANTIGEN_DEBUG_LOG="/var/log/antigen/debug.log"
 
 # antigen time!
 # source ~/code/antigen/antigen.zsh
@@ -22,14 +24,27 @@ source $(brew --prefix)/share/antigen/antigen.zsh
 ### install some antigen bundles
 
 local b="antigen-bundle"
-
+#local b="antigen bundle"
+# local b="antigen bundle"
 
 # Don't load the oh-my-zsh's library. Takes too long. No need.
 antigen use oh-my-zsh
 
+antigen bundles <<EOBUNDLES
+    capistrano
+    cp
+    emoji
+    fzf
+    helm
+    history
+    sudo
+    wfxr/forgit
+    $HOME/.zsh_custom/plugins/palette
+    $HOME/.zsh_custom/plugins/skaffold
+EOBUNDLES
+
 # atom editor
 $b atom
-
 $b autojump
 
 # homebrew  - autocomplete on `brew install`
@@ -59,9 +74,6 @@ $b pip
 $b web-search
 $b z
 
-$b zsh-users/zsh-syntax-highlighting
-$b zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
-
 # ------- Git Repos -------------
 
 # Tracks your most used directories, based on 'frecency'.
@@ -86,12 +98,19 @@ $b trapd00r/zsh-syntax-highlighting-filetypes
 $b mafredri/zsh-async
 $b sindresorhus/pure
 
+#Auto Env (direnv)
+# $b kennethreitz/autoenv
+$b Tarrasch/zsh-autoenv #Special ZSH version
+
+
 # ---------------------------------
 
 #antigen theme gnzh
-#antigen theme robbyrussell
-#antigen theme agnoster
-antigen theme githubuser/repo
+# antigen theme robbyrussell
+antigen theme XsErG/zsh-themes themes/lazyuser
+# antigen theme agnoster
+# antigen theme funky
+# antigen theme githubuser/repo
 
 # Setup zsh-autosuggestions
 #source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -103,6 +122,7 @@ antigen theme githubuser/repo
 # Automatically list directory contents on `cd`.
 auto-ls () {
 	emulate -L zsh;
+    # explicit sexy ls'ing as aliases arent honored in here.
 	# explicit sexy ls'ing as aliases arent honored in here.
 	hash gls >/dev/null 2>&1 && CLICOLOR_FORCE=1 gls -aFh --color --group-directories-first || ls
 }
@@ -124,8 +144,6 @@ zle-history-down(){
 
 
 
-
-
 # bind UP and DOWN arrow keys for history search
 zmodload zsh/terminfo
 zle -N zle-history-up
@@ -137,8 +155,6 @@ AUTOSUGGESTION_ACCEPT_RIGHT_ARROW=1
 export PURE_GIT_UNTRACKED_DIRTY=0
 
 zle -N zle-line-init
-
-
 
 
 
@@ -161,7 +177,10 @@ antigen apply
 # Load default dotfiles
 source ~/.bash_profile
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+
 
 
