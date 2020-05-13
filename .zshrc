@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # uncomment to profile prompt startup with zprof
 # zmodload zsh/zprof
 
@@ -19,11 +26,13 @@ export ANTIGEN_DEBUG_LOG="/var/log/antigen/debug.log"
 #source /usr/local/share/antigen/antigen.zsh
 source $(brew --prefix)/share/antigen/antigen.zsh
 
+# load presto!
+source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
 ######################################################################
 ### install some antigen bundles
 
-local b="antigen-bundle"
+# local b="antigen-bundle"
 #local b="antigen bundle"
 # local b="antigen bundle"
 
@@ -41,73 +50,76 @@ antigen bundles <<EOBUNDLES
     wfxr/forgit
     $HOME/.zsh_custom/plugins/palette
     $HOME/.zsh_custom/plugins/skaffold
+
+    # atom editor
+    atom
+    autojump
+
+    # homebrew 
+    brew
+    brew-cask
+
+    # Guess what to install when running an unknown command.
+    command-not-found
+
+    common-aliases
+
+    compleat
+
+    # Helper for extracting different types of archives.
+    extract
+
+    git
+    git-extras
+    git-flow
+
+    heroku
+
+    lein
+    npm
+    osx
+    pip
+    web-search
+    z
+
+
+    # ------- Git Repos -------------
+
+    # Tracks your most used directories, based on 'frecency'.
+    robbyrussell/oh-my-zsh plugins/z
+
+    # nicoulaj's moar completion files for zsh -- not sure why disabled.
+    zsh-users/zsh-completions src
+
+    # Syntax highlighting on the readline
+    zsh-users/zsh-syntax-highlighting
+
+    # history search
+    zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
+
+    # suggestions
+    tarruda/zsh-autosuggestions
+
+    # colors for all files!
+    trapd00r/zsh-syntax-highlighting-filetypes
+
+    # dont set a theme, because pure does it all
+    mafredri/zsh-async
+    sindresorhus/pure
+
+    #Auto Env (direnv)
+    # kennethreitz/autoenv
+    Tarrasch/zsh-autoenv #Special ZSH version
+
+    # ---------------------------------
+
 EOBUNDLES
 
-# atom editor
-$b atom
-$b autojump
 
-# homebrew  - autocomplete on `brew install`
-$b brew
-$b brew-cask
-
-# Guess what to install when running an unknown command.
-$b command-not-found
-
-$b common-aliases
-
-$b compleat
-
-# Helper for extracting different types of archives.
-$b extract
-
-$b git
-$b git-extras
-$b git-flow
-
-$b heroku
-
-$b lein
-$b npm
-$b osx
-$b pip
-$b web-search
-$b z
-
-# ------- Git Repos -------------
-
-# Tracks your most used directories, based on 'frecency'.
-$b robbyrussell/oh-my-zsh plugins/z
-
-# nicoulaj's moar completion files for zsh -- not sure why disabled.
- $b zsh-users/zsh-completions src
-
-# Syntax highlighting on the readline
-$b zsh-users/zsh-syntax-highlighting
-
-# history search
-$b zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
-
-# suggestions
-$b tarruda/zsh-autosuggestions
-
-# colors for all files!
-$b trapd00r/zsh-syntax-highlighting-filetypes
-
-# dont set a theme, because pure does it all
-$b mafredri/zsh-async
-$b sindresorhus/pure
-
-#Auto Env (direnv)
-# $b kennethreitz/autoenv
-$b Tarrasch/zsh-autoenv #Special ZSH version
-
-
-# ---------------------------------
 
 #antigen theme gnzh
 # antigen theme robbyrussell
-antigen theme XsErG/zsh-themes themes/lazyuser
+# antigen theme XsErG/zsh-themes themes/lazyuser
 # antigen theme agnoster
 # antigen theme funky
 # antigen theme githubuser/repo
@@ -166,6 +178,10 @@ setopt share_history
 
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
+autoload -Uz promptinit
+promptinit
+prompt powerlevel10k
+
 
 # uncomment to finish profiling
 # zprof
@@ -181,6 +197,5 @@ source ~/.bash_profile
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-
-
-
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

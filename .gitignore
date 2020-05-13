@@ -32,3 +32,5 @@ fishd.*
 
 # Java
 *.class
+*.last-run
+*.cache/
