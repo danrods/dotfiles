@@ -177,6 +177,7 @@ setopt share_history
 
 
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto-contrib
 
 autoload -Uz promptinit
 promptinit

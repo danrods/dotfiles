@@ -106,7 +106,7 @@ export M2=$M2_HOME/bin
 export APP_ENGINE=/Users/kkrcentralit/common/appengine-java-sdk-1.9.42/bin
 export J_ENV=/Users/kkrcentralit/.jenv/shims
 
-export PATH=$PATH:$M2:$JAVA:$APP_ENGINE:$J_ENV:$GNU_BIN:$DOTFILE_BIN
+export PATH=$PATH:/usr/local/sbin:$M2:$JAVA:$APP_ENGINE:$J_ENV:$GNU_BIN:$DOTFILE_BIN
 
 export JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true"
 

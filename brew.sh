@@ -72,6 +72,7 @@ brew install sift
 brew install speedtest_cli
 brew install ssh-copy-id
 brew install terminal-notifier
+brew install todo-txt
 brew install tree
 brew install webkit2png
 brew install zopfli
