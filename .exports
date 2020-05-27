@@ -27,7 +27,10 @@ export PKG_CONFIG_PATH="/usr/local/opt/ncurses/lib/pkgconfig"
 
 
 # Setting PATH for Python 3.5
-export PYTHON="/Library/Frameworks/Python.framework/Versions/3.5/bin"
+#export PYTHON="/Library/Frameworks/Python.framework/Versions/3.5/bin"
+# export PYTHON="$(pyenv prefix)/bin"
+export PYTHON="/usr/local/Cellar/python@3.8/3.8.1/Frameworks/Python.framework/Versions/3.8/"
+
 
 export JAVA_HOME="$(/usr/libexec/java_home)"
 # export JAVA="$JAVA_HOME/bin"
@@ -39,7 +42,10 @@ export MYSQL_HOME="/usr/local/opt/mysql@5.5/bin"
 
 export PLAY_HOME="~/projects/play1"
 
-export PATH="$JAVA_HOME/bin:$M2:$PYTHON:$APPENGINE_SDK:$PLAY_HOME:$MYSQL_HOME:$NCURSES:$PATH"
+export JENV_HOME="~/.jenv"
+export JENV="$JENV_HOME/bin"
+
+export PATH="$JENV:$JAVA_HOME/bin:$M2:$PYTHON:$APPENGINE_SDK:$PLAY_HOME:$MYSQL_HOME:$NCURSES:$PATH"
 
 export GNU_BIN="/usr/local/opt/inetutils/libexec/gnubin"
 
@@ -64,7 +70,7 @@ export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
 alias java8='export JAVA_HOME=$JAVA_8_HOME'
 
 #default java7
-export JAVA_HOME=$JAVA_7_HOME
+export JAVA_HOME=$JAVA_8_HOME
 
 #export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_71.jdk/Contents/Home
 export JAVA=$JAVA_HOME/bin
@@ -75,8 +81,9 @@ export M2_HOME=/opt/local/share/java/maven3
 export M2=$M2_HOME/bin
 export APP_ENGINE=/Users/kkrcentralit/common/appengine-java-sdk-1.9.42/bin
 export J_ENV=/Users/kkrcentralit/.jenv/shims
+export PY_ENV=$(pyenv root)/shims
 
-export PATH=$PATH:$M2:$JAVA:$APP_ENGINE:$J_ENV:$GNU_BIN:$DOTFILE_BIN
+export PATH=$PY_ENV:$M2:$JAVA:$APP_ENGINE:$J_ENV:$GNU_BIN:$DOTFILE_BIN:$PATH:
 
 export JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true"
 
@@ -91,3 +98,4 @@ export NVM_DIR=~/.nvm
 # github.com/trapd00r/LS_COLORS
 command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
 eval "$(gdircolors -b ~/.dircolors)"
+eval "$(jenv init -)"

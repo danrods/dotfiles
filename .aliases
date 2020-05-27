@@ -1,3 +1,6 @@
+[ -f ~/.aliases.local ] && source ~/.aliases.local
+
+
 # Easier navigation: .., ..., ~ and -
 alias ..="cd .."
 alias cd..="cd .."
@@ -24,6 +27,30 @@ alias gup='g up'
 alias gg="git lg"
 
 # ------------------------
+
+# ------- Docker ---------
+
+alias d=docker
+
+alias dc=docker-compose
+alias dcu='docker-compose up'
+alias dcd='docker-compose down'
+alias dcurb='docker-compose up --build'
+
+alias d_once='docker exec -it --rm'
+
+alias dps='docker ps --all'
+alias ds='docker stop $(docker ps -a -q)'
+alias ddrmi='d images -q --filter "dangling=true" | xargs docker rmi'
+
+alias dv='docker volume ls'
+
+# ------------------------
+
+# ------- Maven ---------
+alias m=mvn
+alias mp='m clean compile package'
+alias mpf='mp -U'
 
 alias sed='gsed'
 alias ftp='gftp'

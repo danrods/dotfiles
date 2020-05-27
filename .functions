@@ -1,4 +1,4 @@
-source ~/.functions.local
+[ -f ~/.functions.local ] && source ~/.functions.local
 
 
 # Create a new directory and enter it
@@ -17,6 +17,27 @@ function f() {
 
 function wth() {
 	sudo lsof -i :"$1"
+}
+
+# EXEC allows to connect and exit without shutting down container
+function d_exec(){
+	local container=$(docker ps | grep "$1" | awk '{print $1}')
+	local name=$(docker ps | grep "$1" | awk '{print $2}')
+
+	echo "Exec into container $name with ID: $container ..."
+	# If container was found then call docker
+	[ -z $container ] || docker exec -it "$container" sh
+}
+
+# Attach opens in interactive mode so exiting will shutdown container
+function d_attach(){
+	local container=$(docker ps | grep "$1" | awk '{print $1}')
+	local name=$(docker ps | grep "$1" | awk '{print $2}')
+
+	echo "Exec into container $name with ID: $container ..."
+	
+	# If container was found then call docker
+	[ -z $container ] || docker attach "$container"
 }
 
 
@@ -311,9 +332,9 @@ code () {
 # opens the given location
 function s() {
 	if [ $# -eq 0 ]; then
-		sublime .;
+		subl .;
 	else
-		sublime "$@";
+		subl "$@";
 	fi;
 }
 
@@ -379,7 +400,7 @@ function javav(){
 
 
 # Function used to view maven dependencies for a particular group or all dependencies if none selected
-function depends() {
+function mdepends() {
 	if [ $# -eq 2 ]; then
 		cd "$1" && mvn dependency:tree -Dverbose -Dincludes="$2";
 	elif [ $# -eq 1 ]; then
@@ -411,4 +432,13 @@ function fs() {
 # 		git diff --no-index --color-words "$@";
 # 	}
 # fi;
+
+
+dockshell(){
+	docker exec -it "$1" /bin/sh
+}
+
+dockrun() {
+	docker run -it --rm "$1" /bin/sh
+}
 

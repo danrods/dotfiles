@@ -145,6 +145,7 @@ fi;
 # You could just use `-g` instead, but I like being explicit
 complete -W "NSGlobalDomain" defaults
 
+eval "$(direnv hook bash)"
 
 ##
 ## better `cd`'ing
@@ -160,8 +161,7 @@ shopt -s cdspell;
 ssh-add -K ~/.ssh/id_rsa &> /dev/null;
 
 
-
 #source $(brew --prefix nvm)/nvm.sh
 
-
 fortune | cowsay
+

@@ -27,6 +27,8 @@
 	# `git di $number` shows the diff between the state `$number` revisions ago and the current state
 	di = "!d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
 	
+	del = "! de() { git branch -D "$1" || git push --delete origin "$1"; }; de"
+
 	# Remove branches that have already been merged with master
 	# a.k.a. ‘delete merged’
 	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
@@ -97,7 +99,7 @@
 	trustctime = false
 	# insanely beautiful diffs
 	#pager =  diff-so-fancy | less -r
-	pager = diff-highlight | diff-so-fancy | less -r
+	#pager = diff-highlight | diff-so-fancy | less -r
 
 	# Prevent showing files whose names contain non-ASCII symbols as unversioned.
 	# http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html

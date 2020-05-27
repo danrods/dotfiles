@@ -1,0 +1,4 @@
+location:New York,US
+fetch_cmd:curl -V -o -
+units:imperial
+show_daylight:true
