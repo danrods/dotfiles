@@ -54,7 +54,7 @@ alias mpf='mp -U'
 
 alias sed='gsed'
 alias ftp='gftp'
-
+alias sublime='subl'
 
 alias cask='brew cask' # i <3 u cask
 alias where=which # sometimes i forget
@@ -67,6 +67,8 @@ alias forecast='ansiweather -F'
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
+
+alias todo='todo.sh'
 
 # Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
 # (useful when executing time-consuming commands)

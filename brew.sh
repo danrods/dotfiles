@@ -72,6 +72,8 @@ brew install sift
 brew install speedtest_cli
 brew install ssh-copy-id
 brew install terminal-notifier
+brew install todo-txt
+brew install timewarrior
 brew install tree
 brew install webkit2png
 brew install zopfli
@@ -86,22 +88,20 @@ brew install binwalk
 brew install cifer
 brew install dex2jar
 brew install dns2tcp
-brew install fcrackzip
+#brew install fcrackzip
 brew install foremost
 brew install hashpump
 brew install hydra
 brew install john
-brew install knock
-brew install netpbm
-brew install nmap
-brew install pngcheck
-brew install socat
+# brew install knock
+# brew install netpbm
+#brew install nmap
+#brew install pngcheck
+#brew install socat
 brew install sqlmap
-
 # brew install tcpflow
 # brew install tcpreplay
 # brew install tcptrace
-
 #brew install ucspi-tcp # `tcpserver` etc.
 #brew install xpdf
 #brew install xz
@@ -173,3 +173,4 @@ brew install antigen
 
 # Remove outdated versions from the cellar
 brew cleanup
+brew install fzf

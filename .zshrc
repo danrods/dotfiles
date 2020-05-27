@@ -1,9 +1,16 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # uncomment to profile prompt startup with zprof
 # zmodload zsh/zprof
 
 # history
 SAVEHIST=100000
-#antigeZSH_CACHE_DIR=/tmp
+#ZSH_CACHE_DIR=/tmp
 
 # vim bindings
 bindkey -v
@@ -11,87 +18,111 @@ bindkey -v
 
 fpath=( "$HOME/.zfunctions" $fpath )
 
+export ANTIGEN_LOG="/var/log/antigen/antigen.log"
+export ANTIGEN_DEBUG_LOG="/var/log/antigen/debug.log"
 
 # antigen time!
 # source ~/code/antigen/antigen.zsh
 #source /usr/local/share/antigen/antigen.zsh
 source $(brew --prefix)/share/antigen/antigen.zsh
 
+# load presto!
+source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
 ######################################################################
 ### install some antigen bundles
 
-local b="antigen-bundle"
-
+# local b="antigen-bundle"
+#local b="antigen bundle"
+# local b="antigen bundle"
 
 # Don't load the oh-my-zsh's library. Takes too long. No need.
 antigen use oh-my-zsh
 
-# atom editor
-$b atom
+antigen bundles <<EOBUNDLES
+    capistrano
+    cp
+    emoji
+    fzf
+    helm
+    history
+    sudo
+    wfxr/forgit
+    $HOME/.zsh_custom/plugins/palette
+    $HOME/.zsh_custom/plugins/skaffold
 
-$b autojump
+    # atom editor
+    atom
+    autojump
 
-# homebrew  - autocomplete on `brew install`
-$b brew
-$b brew-cask
+    # homebrew 
+    brew
+    brew-cask
 
-# Guess what to install when running an unknown command.
-$b command-not-found
+    # Guess what to install when running an unknown command.
+    command-not-found
 
-$b common-aliases
+    common-aliases
 
-$b compleat
+    compleat
 
-# Helper for extracting different types of archives.
-$b extract
+    # Helper for extracting different types of archives.
+    extract
 
-$b git
-$b git-extras
-$b git-flow
+    git
+    git-extras
+    git-flow
 
-$b heroku
+    heroku
 
-$b lein
-$b npm
-$b osx
-$b pip
-$b web-search
-$b z
+    lein
+    npm
+    osx
+    pip
+    web-search
+    z
 
-$b zsh-users/zsh-syntax-highlighting
-$b zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
 
-# ------- Git Repos -------------
+    # ------- Git Repos -------------
 
-# Tracks your most used directories, based on 'frecency'.
-$b robbyrussell/oh-my-zsh plugins/z
+    # Tracks your most used directories, based on 'frecency'.
+    robbyrussell/oh-my-zsh plugins/z
 
-# nicoulaj's moar completion files for zsh -- not sure why disabled.
- $b zsh-users/zsh-completions src
+    # nicoulaj's moar completion files for zsh -- not sure why disabled.
+    zsh-users/zsh-completions src
 
-# Syntax highlighting on the readline
-$b zsh-users/zsh-syntax-highlighting
+    # Syntax highlighting on the readline
+    zsh-users/zsh-syntax-highlighting
 
-# history search
-$b zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
+    # history search
+    zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
 
-# suggestions
-$b tarruda/zsh-autosuggestions
+    # suggestions
+    tarruda/zsh-autosuggestions
 
-# colors for all files!
-$b trapd00r/zsh-syntax-highlighting-filetypes
+    # colors for all files!
+    trapd00r/zsh-syntax-highlighting-filetypes
 
-# dont set a theme, because pure does it all
-$b mafredri/zsh-async
-$b sindresorhus/pure
+    # dont set a theme, because pure does it all
+    mafredri/zsh-async
+    sindresorhus/pure
 
-# ---------------------------------
+    #Auto Env (direnv)
+    # kennethreitz/autoenv
+    Tarrasch/zsh-autoenv #Special ZSH version
+
+    # ---------------------------------
+
+EOBUNDLES
+
+
 
 #antigen theme gnzh
-#antigen theme robbyrussell
-#antigen theme agnoster
-antigen theme githubuser/repo
+# antigen theme robbyrussell
+# antigen theme XsErG/zsh-themes themes/lazyuser
+# antigen theme agnoster
+# antigen theme funky
+# antigen theme githubuser/repo
 
 # Setup zsh-autosuggestions
 #source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -103,6 +134,7 @@ antigen theme githubuser/repo
 # Automatically list directory contents on `cd`.
 auto-ls () {
 	emulate -L zsh;
+    # explicit sexy ls'ing as aliases arent honored in here.
 	# explicit sexy ls'ing as aliases arent honored in here.
 	hash gls >/dev/null 2>&1 && CLICOLOR_FORCE=1 gls -aFh --color --group-directories-first || ls
 }
@@ -124,8 +156,6 @@ zle-history-down(){
 
 
 
-
-
 # bind UP and DOWN arrow keys for history search
 zmodload zsh/terminfo
 zle -N zle-history-up
@@ -140,8 +170,6 @@ zle -N zle-line-init
 
 
 
-
-
 # history mgmt
 # http://www.refining-linux.org/archives/49/ZSH-Gem-15-Shared-history/
 setopt inc_append_history
@@ -149,6 +177,11 @@ setopt share_history
 
 
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto-contrib
+
+autoload -Uz promptinit
+promptinit
+prompt powerlevel10k
 
 
 # uncomment to finish profiling
@@ -161,7 +194,9 @@ antigen apply
 # Load default dotfiles
 source ~/.bash_profile
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
